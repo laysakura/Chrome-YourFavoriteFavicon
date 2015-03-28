@@ -3,13 +3,15 @@
   "name": "your-favorite-favicon",
   "description": "You can choose your favorite favicon on each site.",
   "version": "0.1.0",
-  "permissions": [
-    "tabs"
-  ],
+  "browser_action": {
+    "default_title": "Your Favorite Favicon",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["http://example.com/*"],
-      "js": ["your-favorite-favicon.js"],
+      "js": ["js/your-favorite-favicon.js"],
       "run_at": "document_end"
     }
   ]
