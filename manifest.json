@@ -1,0 +1,9 @@
+{
+  "manifest_version": 2,
+  "name": "your-favorite-favicon",
+  "description": "You can choose your favorite favicon on each site.",
+  "version": "0.1.0",
+  "permissions": [
+    "tabs"
+  ]
+}
