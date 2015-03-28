@@ -11,7 +11,7 @@
   "content_scripts": [
     {
       "matches": ["http://example.com/*"],
-      "js": ["js/your-favorite-favicon.js"],
+      "js": ["js/consts.js", "js/icon_setting.js", "js/canvas.js", "js/your-favorite-favicon.js"],
       "run_at": "document_end"
     }
   ]
