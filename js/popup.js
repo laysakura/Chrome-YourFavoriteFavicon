@@ -13,12 +13,28 @@
   // Event listners (Controllers)
   $('#yff_bg_color').keyup(function() {
     var bg_color = $(this).val();
-    if (!yff_is_valid_bg_color(bg_color)) return;
+    if (!yffIsValidBgColor(bg_color)) return;
 
     console.log('Background color set:');
     console.log(bg_color);
 
-    yffCanvasDraw(canvas, bg_color);
+    yffCanvasDrawSimple(canvas, bg_color);
+  });
+
+  $('#yff_icon_img').change(function() {
+    var file = this.files[0];
+    if (!file.type.match(YFF_UPLOAD_IMG_TYPE_PATTERN)) return;
+
+    console.log('Valid image file set:');
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var data_url = e.target.result;
+      console.log(data_url);
+      yffCanvasDrawImageDataUrl(canvas, data_url);
+    }
+    reader.readAsDataURL(file);
+
   });
 
   $('#yff_register_btn').click(function() {
