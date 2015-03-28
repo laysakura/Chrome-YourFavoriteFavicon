@@ -5,8 +5,16 @@
   canvas.height = YFF_ICON_SIZE;
 
   // 初期値はlocalStorageから(modelから)とる
-  var registered_settings = {
-    'bg_color': '#0af',
+  // これをform element操作でメモリ上で変更していく
+  var icon_setting = {
+    icon_from: 'simple',
+    simple: {
+      bg_color: '#0af',
+      character: 'W',
+    },
+    local_img: {
+      data_url: null,
+    },
   }
 
   //
@@ -27,12 +35,15 @@
     console.log('Background color set:');
     console.log(bg_color);
 
+    icon_setting.icon_from = 'simple';
+    icon_setting.simple.bg_color = bg_color;
+
     yffCanvasDrawSimple(canvas, bg_color);
   });
 
   $('#yff_local_img').change(function() {
     var file = this.files[0];
-    if (!file.type.match(YFF_UPLOAD_IMG_TYPE_PATTERN)) return;
+    if (!yffIsValidLocalImg(file)) return;
 
     console.log('Valid image file set:');
 
@@ -40,14 +51,27 @@
     reader.onload = function(e) {
       var data_url = e.target.result;
       console.log(data_url);
+
+      // checks localStorage's limitation
+      if (data_url.length > chrome.storage.sync.QUOTA_BYTES_PER_ITEM) {
+        console.log('[FATAL] data_url too large');
+        return;
+      }
+
+      icon_setting.icon_from = 'local_img';
+      icon_setting.local_img.data_url = data_url;
+
       yffCanvasDrawImageDataUrl(canvas, data_url);
     }
     reader.readAsDataURL(file);
   });
 
   $('#yff_register_btn').click(function() {
-    chrome.storage.sync.set(registered_settings, function() {
+    // var icon_from = ;
+
+    chrome.storage.sync.set(icon_setting, function() {
       console.log('setting has been saved.');
+      console.log(icon_setting);
     });
   });
 
