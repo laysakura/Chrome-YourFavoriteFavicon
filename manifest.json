@@ -5,5 +5,12 @@
   "version": "0.1.0",
   "permissions": [
     "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://example.com/*"],
+      "js": ["your-favorite-favicon.js"],
+      "run_at": "document_end"
+    }
   ]
 }
