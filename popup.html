@@ -3,13 +3,24 @@
   <head>
     <meta charset="utf-8">
   </head>
-  <body style="min-width:250px">
-    <label>Background color
-      <input id="yff_bg_color" type="text">
-    </label>
-    <label>Icon image
-      <input id="yff_icon_img" type="file">
-    </label>
+  <body style="min-width:400px">
+
+    <div>
+      <label><input type="radio" name="icon_from" value="simple" checked>Background color & a character</label>
+      <label><input type="radio" name="icon_from" value="local_img">Local image file</label>
+    </div>
+
+    <fieldset id="yff_fieldset_simple" class="yff_fieldset">
+      <label>Background color
+        <input id="yff_bg_color" type="text">
+      </label>
+    </fieldset>
+
+    <fieldset id="yff_fieldset_local_img" class="yff_fieldset" disabled="disabled">
+      <label>Local image
+        <input id="yff_local_img" type="file">
+      </label>
+    </fieldset>
 
     <div>
       <p>Editing icon</p>
