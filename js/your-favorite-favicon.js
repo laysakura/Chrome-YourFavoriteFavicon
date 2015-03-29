@@ -1,6 +1,6 @@
 (function() {
 
-  chrome.storage.sync.get(null, function(settings) {
+  chrome.storage.local.get(null, function(settings) {
 
     console.log('Current localStorage contents:');
     console.log(settings);

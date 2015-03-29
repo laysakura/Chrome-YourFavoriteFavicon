@@ -69,7 +69,7 @@
   $('#yff_register_btn').click(function() {
     // var icon_from = ;
 
-    chrome.storage.sync.set(icon_setting, function() {
+    chrome.storage.local.set(icon_setting, function() {
       console.log('setting has been saved.');
       console.log(icon_setting);
     });
