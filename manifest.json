@@ -10,7 +10,7 @@
   "permissions": ["storage"],
   "content_scripts": [
     {
-      "matches": ["http://example.com/*"],
+      "matches": ["<all_urls>"],
       "js": ["js/consts.js", "js/icon_setting.js", "js/canvas.js", "js/your-favorite-favicon.js"],
       "run_at": "document_end"
     }
