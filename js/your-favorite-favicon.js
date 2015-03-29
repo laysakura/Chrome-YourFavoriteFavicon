@@ -1,15 +1,47 @@
 (function() {
 
-  chrome.storage.sync.get(null, function(icon_setting) {
+  chrome.storage.sync.get(null, function(settings) {
 
     console.log('Current localStorage contents:');
-    console.log(icon_setting);
+    console.log(settings);
+
+    // var icon_settings = settings.icon_settings;
+    var icon_settings = {
+      icon_settings: [
+        {
+          url_pattern: 'http://example\.com/',
+          updated_at: 12345,
+        },
+        {
+          url_pattern: 'http://example\.com/',
+          updated_at: 23456,
+          icon_from: 'simple',
+          simple: {
+            bg_color: '#a0f',
+          },
+        },
+        {
+          url_pattern: 'http://example\..*/',
+          updated_at: 23456,
+        },
+      ]
+    }.icon_settings;
+
+    // Find matched_icon_settings from icon_settings whose url_pattern matches to current URL.
+    // Elements in matched_icon_settings are ordered by priority.
+    var url = location.href;
+    var matched_icon_settings = yffMatchedIconSettingsInOrder(icon_settings, url);
+    console.log('matched_icon_settings:');
+    console.log(matched_icon_settings);
+    if (matched_icon_settings.length == 0) return;
+
+    // Found icon_setting to apply in this page.
+    var icon_setting = matched_icon_settings[0];
 
     var canvas = document.createElement('canvas');
     canvas.width = YFF_ICON_SIZE;
     canvas.height = YFF_ICON_SIZE;
 
-    // ラジオボタンの選択結果から、描画方法を選択
     switch (icon_setting.icon_from) {
     case 'simple':
       yffCanvasDrawSimple(canvas, icon_setting.simple.bg_color);
@@ -20,9 +52,7 @@
     }
 
     var img_data_url = canvas.toDataURL(YFF_ICON_DATA_URL_FORMAT);
-
     updateIcon(img_data_url);
-
   });
 
 
