@@ -1,0 +1,30 @@
+{
+  "name": "your-favorite-favicon",
+  "version": "0.1.0",
+  "description": "You can choose your favorite favicon on each site.",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laysakura/your-favorite-favicon"
+  },
+  "keywords": [
+    "favicon",
+    "chrome-extension"
+  ],
+  "author": "Sho Nakatani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/laysakura/your-favorite-favicon/issues"
+  },
+  "homepage": "https://github.com/laysakura/your-favorite-favicon",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "mocha": "^2.2.1"
+  }
+}
