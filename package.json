@@ -25,6 +25,7 @@
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-uglify": "^0.8.0",
     "grunt-contrib-watch": "^0.6.1",
-    "mocha": "^2.2.1"
+    "mocha": "^2.2.1",
+    "power-assert": "^0.10.2"
   }
 }
