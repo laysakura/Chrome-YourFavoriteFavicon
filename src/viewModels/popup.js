@@ -1,9 +1,9 @@
-var ViewModel = function() {
-  this.bgColor = ko.observable("#ffffff");
-};
-ko.applyBindings(new ViewModel());
-
 (function() {
+  var ViewModel = function() {
+    this.bgColor = ko.observable("#ffffff");
+  };
+  ko.applyBindings(new ViewModel());
+
   var settings = new YffSettings();
 
   var canvas = $('#yff_editing_icon_canvas')[0];
