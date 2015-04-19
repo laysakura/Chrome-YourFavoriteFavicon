@@ -1,30 +1,3 @@
-(function(global) {
-  "use strict";
-
-  // --- dependency modules ----------------------------------
-  // --- define / local variables ----------------------------
-
-  // --- class / interfaces ----------------------------------
-  function YffSettings() {}
-
-  YffSettings["prototype"]["isValidBgColor"] = isValidBgColor; // isValidBgColor(bg_color:String):Boolean
-
-  // --- implements ------------------------------------------
-  function isValidBgColor(bg_color) {
-    return /^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(bg_color);
-  }
-
-  // --- exports ---------------------------------------------
-  if (typeof module !== "undefined") {
-    module["exports"] = YffSettings;
-  }
-  global["YffSettings"] = YffSettings;
-
-})((this || 0).self || global);
-
-
-// Model functions
-
 function yffIsValidLocalImg(local_img) {
   return local_img.type.match(YFF_UPLOAD_IMG_TYPE_PATTERN);
 }
