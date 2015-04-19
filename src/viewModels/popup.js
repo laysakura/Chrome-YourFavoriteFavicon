@@ -4,6 +4,7 @@ var ViewModel = function() {
 ko.applyBindings(new ViewModel());
 
 (function() {
+  var settings = new YffSettings();
 
   var canvas = $('#yff_editing_icon_canvas')[0];
   canvas.width = YFF_ICON_SIZE;
@@ -35,7 +36,7 @@ ko.applyBindings(new ViewModel());
 
   $('#yff_bg_color').keyup(function() {
     var bg_color = $(this).val();
-    if (!yffIsValidBgColor(bg_color)) return;
+    if (!settings.isValidBgColor(bg_color)) return;
 
     console.log('Background color set:');
     console.log(bg_color);
