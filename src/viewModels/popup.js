@@ -1,6 +1,19 @@
 (function() {
   var ViewModel = function() {
     this.bgColor = ko.observable("#ffffff");
+
+    this.drawPreviewFromBgColor = function() {
+      console.log("Validating bgColor: " + this.bgColor())
+      if (!settings.isValidBgColor(this.bgColor())) return;
+
+      console.log('Background color set:');
+      console.log(this.bgColor());
+
+      icon_setting.icon_from = 'simple';
+      icon_setting.simple.bg_color = this.bgCcolor;
+
+      yffCanvasDrawSimple(canvas, this.bgColor());
+    }
   };
   ko.applyBindings(new ViewModel());
 
@@ -32,19 +45,6 @@
 
     $('.yff_fieldset').attr("disabled", true);
     $('#yff_fieldset_' + icon_from).attr("disabled", false);
-  });
-
-  $('#yff_bg_color').keyup(function() {
-    var bg_color = $(this).val();
-    if (!settings.isValidBgColor(bg_color)) return;
-
-    console.log('Background color set:');
-    console.log(bg_color);
-
-    icon_setting.icon_from = 'simple';
-    icon_setting.simple.bg_color = bg_color;
-
-    yffCanvasDrawSimple(canvas, bg_color);
   });
 
   $('#yff_local_img').change(function() {
