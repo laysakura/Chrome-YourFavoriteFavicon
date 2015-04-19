@@ -1,18 +1,21 @@
 (function() {
+  function drawPreviewFromBgColor(bgColor) {
+    console.log("Validating bgColor: " + bgColor)
+    if (!settings.isValidBgColor(bgColor)) return;
+
+    console.log('Background color set:');
+    console.log(bgColor);
+
+    icon_setting.icon_from = 'simple';
+    icon_setting.simple.bg_color = this.bgCcolor;
+
+    yffCanvasDrawSimple(canvas, bgColor);
+  }
+
   var ViewModel = function() {
     this.bgColor = ko.observable("#ffffff");
-
-    this.drawPreviewFromBgColor = function() {
-      console.log("Validating bgColor: " + this.bgColor())
-      if (!settings.isValidBgColor(this.bgColor())) return;
-
-      console.log('Background color set:');
-      console.log(this.bgColor());
-
-      icon_setting.icon_from = 'simple';
-      icon_setting.simple.bg_color = this.bgCcolor;
-
-      yffCanvasDrawSimple(canvas, this.bgColor());
+    this.handleBgColor = function() {
+      drawPreviewFromBgColor(this.bgColor());
     }
   };
   ko.applyBindings(new ViewModel());

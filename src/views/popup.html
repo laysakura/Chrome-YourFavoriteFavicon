@@ -16,7 +16,7 @@
 
     <fieldset id="yff_fieldset_simple" class="yff_fieldset">
       <label>Background color
-        <input type="text" data-bind="value: bgColor, valueUpdate: 'afterkeydown', event: { keyup: drawPreviewFromBgColor }">
+        <input type="text" data-bind="value: bgColor, valueUpdate: 'afterkeydown', event: { keyup: handleBgColor }">
       </label>
       <p data-bind="text: bgColor">debug</p>
     </fieldset>
