@@ -4,38 +4,15 @@
   main();
 
   function main() {
-    // knockout.js
-    function drawPreviewFromBgColor(bgColor) {
-      var validator = new YffValidator();
-
-      console.log("Validating bgColor: " + bgColor)
-      if (!validator.isValidHtmlColorCode(bgColor)) return;
-
-      console.log('Background color set:');
-      console.log(bgColor);
-
-      icon_setting.icon_from = 'simple';
-      icon_setting.simple.bg_color = bgColor;
-
-      yffCanvasDrawSimple(canvas, bgColor);
-    }
-
-    var ViewModel = function() {
-      this.bgColor = ko.observable("#ffffff");
-      this.handleBgColor = function() {
-        drawPreviewFromBgColor(this.bgColor());
-      }
-    };
-    ko.applyBindings(new ViewModel());
-
-
-    // jQuery validation
-    registerValidations();
-
+    var validator = new YffValidator();
 
     var canvas = $('#yff_editing_icon_canvas')[0];
     canvas.width = YFF_ICON_SIZE;
     canvas.height = YFF_ICON_SIZE;
+
+    registerDataBindings(canvas, validator);
+    registerInteractiveValidations(validator);
+
 
     // 初期値はlocalStorageから(modelから)とる
     // これをform element操作でメモリ上で変更していく
@@ -98,9 +75,7 @@
 
 
   // Methods
-  function registerValidations(settings) {
-    var validator = new YffValidator();
-
+  function registerInteractiveValidations(validator) {
     jQuery.validator.addMethod("htmlColorCode", function(value, element) {
       return this.optional(element) || validator.isValidHtmlColorCode(value);
     }, "HTMLカラーコードとして適切な値を入力してください");
@@ -116,6 +91,23 @@
         }
       });
     });
+  }
+
+  function registerDataBindings(canvas, validator) {
+    var ViewModel = function() {
+      this.bgColor = ko.observable("#ffffff");
+      this.handleBgColor = function() {
+        if (!validator.isValidHtmlColorCode(this.bgColor())) return;
+
+        drawPreviewSimple(canvas, this.bgColor());
+        // [TODO] - modelのオブジェクトにsimpleの値をセットする
+      }
+    };
+    ko.applyBindings(new ViewModel());
+  }
+
+  function drawPreviewSimple(canvas, bgColor) {
+    yffCanvasDrawSimple(canvas, bgColor);
   }
 
 })();
