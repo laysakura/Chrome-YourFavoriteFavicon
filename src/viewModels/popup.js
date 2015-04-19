@@ -108,6 +108,7 @@
     $(document).ready(function() {
       $('#yffForm').validate({
         debug: true,
+        onkeyup: function(element) { $(element).valid(); },  // `onkeyup: true` does not work... see https://github.com/jzaefferer/jquery-validation/issues/428
         rules: {
           yffBgColor: {
             htmlColorCode: true
