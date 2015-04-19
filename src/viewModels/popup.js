@@ -1,19 +1,21 @@
 (function() {
+  "use strict";
+
   main();
 
   function main() {
-    var settings = new YffSettings();
-
     // knockout.js
     function drawPreviewFromBgColor(bgColor) {
+      var validator = new YffValidator();
+
       console.log("Validating bgColor: " + bgColor)
-      if (!settings.isValidBgColor(bgColor)) return;
+      if (!validator.isValidHtmlColorCode(bgColor)) return;
 
       console.log('Background color set:');
       console.log(bgColor);
 
       icon_setting.icon_from = 'simple';
-      icon_setting.simple.bg_color = this.bgCcolor;
+      icon_setting.simple.bg_color = bgColor;
 
       yffCanvasDrawSimple(canvas, bgColor);
     }
@@ -96,9 +98,11 @@
 
 
   // Methods
-  function registerValidations() {
+  function registerValidations(settings) {
+    var validator = new YffValidator();
+
     jQuery.validator.addMethod("htmlColorCode", function(value, element) {
-      return this.optional(element) || /^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(value);
+      return this.optional(element) || validator.isValidHtmlColorCode(value);
     }, "HTMLカラーコードとして適切な値を入力してください");
 
     $(document).ready(function() {
