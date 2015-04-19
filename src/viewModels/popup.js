@@ -1,3 +1,8 @@
+var ViewModel = function() {
+  this.bgColor = ko.observable("#ffffff");
+};
+ko.applyBindings(new ViewModel());
+
 (function() {
 
   var canvas = $('#yff_editing_icon_canvas')[0];
@@ -7,11 +12,11 @@
   // Retrieve settings from localStorage (async).
   var db_loaded = false;
   var settings = yffGetInitialSettings();
-  chrome.storage.local.get(null, function(_settings) {
+  chrome.storage.local.get(null, function(settings_from_db) {
     db_loaded = true;
     console.log('Raw current Db object:');
-    console.log(_settings);
-    if (yffIsValidSettings(settings)) settings = _settings;
+    console.log(settings_from_db);
+    if (yffIsValidSettings(settings_from_db)) settings = settings_from_db;
   });
 
 
