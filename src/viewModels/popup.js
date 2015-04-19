@@ -1,4 +1,8 @@
 (function() {
+  var settings = new YffSettings();
+
+
+  // knockout.js
   function drawPreviewFromBgColor(bgColor) {
     console.log("Validating bgColor: " + bgColor)
     if (!settings.isValidBgColor(bgColor)) return;
@@ -20,7 +24,23 @@
   };
   ko.applyBindings(new ViewModel());
 
-  var settings = new YffSettings();
+
+  // jQuery validation
+  jQuery.validator.addMethod("htmlColorCode", function(value, element) {
+    return this.optional(element) || /^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(value);
+  }, "HTMLカラーコードとして適切な値を入力してください");
+
+  $(document).ready(function() {
+    $('#yffForm').validate({
+      debug: true,
+      rules: {
+        yffBgColor: {
+          htmlColorCode: true
+        }
+      }
+    });
+  });
+
 
   var canvas = $('#yff_editing_icon_canvas')[0];
   canvas.width = YFF_ICON_SIZE;

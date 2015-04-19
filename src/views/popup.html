@@ -5,37 +5,40 @@
   </head>
   <body style="min-width:400px">
 
-    <label>URL Pattern
+    <form id="yffForm">
+      <label>URL Pattern
       <input id="yff_url_pattern" type="text">
-    </label>
-
-    <div>
-      <label><input type="radio" name="icon_from" value="simple" checked>Background color & a character</label>
-      <label><input type="radio" name="icon_from" value="local_img">Local image file</label>
-    </div>
-
-    <fieldset id="yff_fieldset_simple" class="yff_fieldset">
-      <label>Background color
-        <input type="text" data-bind="value: bgColor, valueUpdate: 'afterkeydown', event: { keyup: handleBgColor }">
       </label>
-      <p data-bind="text: bgColor">debug</p>
-    </fieldset>
 
-    <fieldset id="yff_fieldset_local_img" class="yff_fieldset" disabled="disabled">
-      <label>Local image
+      <div>
+        <label><input type="radio" name="icon_from" value="simple" checked>Background color & a character</label>
+        <label><input type="radio" name="icon_from" value="local_img">Local image file</label>
+      </div>
+
+      <fieldset id="yff_fieldset_simple" class="yff_fieldset">
+        <label>Background color
+        <input id="yffBgColor" name="yffBgColor" type="text" data-bind="value: bgColor, valueUpdate: 'afterkeydown', event: { keyup: handleBgColor }">
+        </label>
+        <p data-bind="text: bgColor">debug</p>
+      </fieldset>
+
+      <fieldset id="yff_fieldset_local_img" class="yff_fieldset" disabled="disabled">
+        <label>Local image
         <input id="yff_local_img" type="file">
-      </label>
-      <span>Less than 8KB as data url</span>
-    </fieldset>
+        </label>
+        <span>Less than 8KB as data url</span>
+      </fieldset>
 
-    <div>
-      <p>Editing icon</p>
-      <canvas id="yff_editing_icon_canvas"></canvas>
-    </div>
+      <div>
+        <p>Editing icon</p>
+        <canvas id="yff_editing_icon_canvas"></canvas>
+      </div>
 
-    <button id="yff_register_btn" type="button">Register</button>
+      <button id="yff_register_btn" type="button">Register</button>
+    </form>
 
     <script src="../../lib/jquery-2.1.3.min.js"></script>
+    <script src="../../lib/jquery.validate-1.13.1.min.js"></script>
     <script src="../../lib/knockout-3.3.0.js"></script>
     <script src="../miscs/consts.js"></script>
     <script src="../miscs/canvas.js"></script>
