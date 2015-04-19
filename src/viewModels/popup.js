@@ -9,16 +9,18 @@ ko.applyBindings(new ViewModel());
   canvas.width = YFF_ICON_SIZE;
   canvas.height = YFF_ICON_SIZE;
 
-  // Retrieve settings from localStorage (async).
-  var db_loaded = false;
-  var settings = yffGetInitialSettings();
-  chrome.storage.local.get(null, function(settings_from_db) {
-    db_loaded = true;
-    console.log('Raw current Db object:');
-    console.log(settings_from_db);
-    if (yffIsValidSettings(settings_from_db)) settings = settings_from_db;
-  });
-
+  // 初期値はlocalStorageから(modelから)とる
+  // これをform element操作でメモリ上で変更していく
+  var icon_setting = {
+    icon_from: 'simple',
+    simple: {
+      bg_color: '#0af',
+      character: 'W',
+    },
+    local_img: {
+      data_url: null,
+    },
+  }
 
   //
   // Event listners (Controllers)
@@ -70,16 +72,11 @@ ko.applyBindings(new ViewModel());
   });
 
   $('#yff_register_btn').click(function() {
-    if (!db_loaded) return;
+    // var icon_from = ;
+
     chrome.storage.local.set(icon_setting, function() {
       console.log('setting has been saved.');
       console.log(icon_setting);
-    });
-  });
-
-  $('#yff_reset_all_btn').click(function() {
-    chrome.storage.local.clear(function() {
-      console.log('All setting has been reset.');
     });
   });
 
