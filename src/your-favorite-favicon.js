@@ -46,8 +46,8 @@
     case 'simple':
       yffCanvasDrawSimple(canvas, icon_setting.simple.bg_color);
       break;
-    case 'local_img':
-      yffCanvasDrawImageDataUrl(canvas, icon_setting.local_img.data_url);
+    case 'localImg':
+      yffCanvasDrawImageDataUrl(canvas, icon_setting.localImg.data_url);
       break;
     }
 

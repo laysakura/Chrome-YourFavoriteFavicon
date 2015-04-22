@@ -1,5 +1,5 @@
-function yffIsValidLocalImg(local_img) {
-  return local_img.type.match(YFF_UPLOAD_IMG_TYPE_PATTERN);
+function yffIsValidLocalImg(localImg) {
+  return localImg.type.match(YFF_UPLOAD_IMG_TYPE_PATTERN);
 }
 
 // @param icon_settings Array of object.

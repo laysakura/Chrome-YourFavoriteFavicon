@@ -22,7 +22,7 @@
         bg_color: '#0af',
         character: 'W',
       },
-      local_img: {
+      localImg: {
         data_url: null,
       },
     }
@@ -38,7 +38,7 @@
       $('#yff_fieldset_' + iconFrom).attr("disabled", false);
     });
 
-    $('#yff_local_img').change(function() {
+    $('#yff_localImg').change(function() {
       var file = this.files[0];
       if (!yffIsValidLocalImg(file)) return;
 
@@ -55,8 +55,8 @@
           return;
         }
 
-        icon_setting.iconFrom = 'local_img';
-        icon_setting.local_img.data_url = data_url;
+        icon_setting.iconFrom = 'localImg';
+        icon_setting.localImg.data_url = data_url;
 
         yffCanvasDrawImageDataUrl(canvas, data_url);
       }
