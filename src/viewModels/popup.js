@@ -17,7 +17,7 @@
     // 初期値はlocalStorageから(modelから)とる
     // これをform element操作でメモリ上で変更していく
     var icon_setting = {
-      icon_from: 'simple',
+      iconFrom: 'simple',
       simple: {
         bg_color: '#0af',
         character: 'W',
@@ -29,13 +29,13 @@
 
     //
     // Event listners (Controllers)
-    $('input[name="icon_from"]:radio').change(function() {
+    $('input[name="iconFrom"]:radio').change(function() {
       console.log('radio button changed:');
-      var icon_from = $(this).val();
-      console.log(icon_from);
+      var iconFrom = $(this).val();
+      console.log(iconFrom);
 
       $('.yff_fieldset').attr("disabled", true);
-      $('#yff_fieldset_' + icon_from).attr("disabled", false);
+      $('#yff_fieldset_' + iconFrom).attr("disabled", false);
     });
 
     $('#yff_local_img').change(function() {
@@ -55,7 +55,7 @@
           return;
         }
 
-        icon_setting.icon_from = 'local_img';
+        icon_setting.iconFrom = 'local_img';
         icon_setting.local_img.data_url = data_url;
 
         yffCanvasDrawImageDataUrl(canvas, data_url);
@@ -64,7 +64,7 @@
     });
 
     $('#yff_register_btn').click(function() {
-      // var icon_from = ;
+      // var iconFrom = ;
 
       chrome.storage.local.set(icon_setting, function() {
         console.log('setting has been saved.');

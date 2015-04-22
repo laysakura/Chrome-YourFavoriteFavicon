@@ -15,7 +15,7 @@
         {
           url_pattern: 'http://example\.com/',
           updated_at: 23456,
-          icon_from: 'simple',
+          iconFrom: 'simple',
           simple: {
             bg_color: '#a0f',
           },
@@ -42,7 +42,7 @@
     canvas.width = YFF_ICON_SIZE;
     canvas.height = YFF_ICON_SIZE;
 
-    switch (icon_setting.icon_from) {
+    switch (icon_setting.iconFrom) {
     case 'simple':
       yffCanvasDrawSimple(canvas, icon_setting.simple.bg_color);
       break;
