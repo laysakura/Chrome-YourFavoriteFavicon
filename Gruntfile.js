@@ -3,9 +3,9 @@ module.exports = function (grunt) {
   var source = {
     build: [
       'src/miscs/*.js',
-      'src/viewModels/*.js',
       'src/models/*.js',
-      'src/your-favorite-favicon.js'
+      'src/viewModels/*.js',
+      'src/your-favorite-favicon.js',
     ]
   };
 
@@ -15,18 +15,18 @@ module.exports = function (grunt) {
     concat: {
       build: {
         src : source.build,
-        dest: 'dist/your-favarite-favicon.dev.js'
+        dest: 'dist/your-favorite-favicon.dev.js'
       }
     },
 
     uglify: {
       build: {
-        src : 'dist/your-favarite-favicon.dev.js',
-        dest: 'dist/your-favarite-favicon.min.js',
+        src : 'dist/your-favorite-favicon.dev.js',
+        dest: 'dist/your-favorite-favicon.min.js',
         options: {
           banner: '/*! <%= pkg.name %> | Copyright (c) 2015 Sho Nakatani. */',
           sourceMap: true,
-          sourceMapName : 'dist/your-favarite-favicon.map'
+          sourceMapName : 'dist/your-favorite-favicon.map'
         }
       }
     },
