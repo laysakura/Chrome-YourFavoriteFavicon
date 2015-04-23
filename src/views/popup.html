@@ -11,8 +11,9 @@
       </label>
 
       <div>
-        <label><input type="radio" name="iconFrom" value="simple" checked>Background color & a character</label>
-        <label><input type="radio" name="iconFrom" value="localImg">Local image file</label>
+        <label><input type="radio" name="iconFrom" value="simple" data-bind="checked: iconFrom">Background color & a character</label>
+        <label><input type="radio" name="iconFrom" value="localImg" data-bind="checked: iconFrom">Local image file</label>
+        <p data-bind="text: iconFrom"></p>
       </div>
 
       <fieldset id="yff_fieldset_simple" class="yff_fieldset">

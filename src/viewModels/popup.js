@@ -29,15 +29,6 @@
 
     //
     // Event listners (Controllers)
-    $('input[name="iconFrom"]:radio').change(function() {
-      console.log('radio button changed:');
-      var iconFrom = $(this).val();
-      console.log(iconFrom);
-
-      $('.yff_fieldset').attr("disabled", true);
-      $('#yff_fieldset_' + iconFrom).attr("disabled", false);
-    });
-
     $('#yff_localImg').change(function() {
       var file = this.files[0];
       if (!yffIsValidLocalImg(file)) return;
@@ -95,13 +86,22 @@
 
   function registerDataBindings(canvas, validator) {
     var ViewModel = function() {
-      this.bgColor = ko.observable("#ffffff");
-      this.handleBgColor = function() {
-        if (!validator.isValidHtmlColorCode(this.bgColor())) return;
+      var self = this;
 
-        drawPreviewSimple(canvas, this.bgColor());
+      self.iconFrom = ko.observable("simple");
+      self.iconFrom.subscribe(function(newValue) {
+        $('.yff_fieldset').attr("disabled", true);
+        $('#yff_fieldset_' + self.iconFrom()).attr("disabled", false);
+      });
+
+      self.bgColor = ko.observable("#ffffff");
+      self.handleBgColor = function() {
+        if (!validator.isValidHtmlColorCode(self.bgColor())) return;
+
+        drawPreviewSimple(canvas, self.bgColor());
         // [TODO] - modelのオブジェクトにsimpleの値をセットする
       }
+
     };
     ko.applyBindings(new ViewModel());
   }
