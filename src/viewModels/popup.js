@@ -89,19 +89,17 @@
       var self = this;
 
       self.iconFrom = ko.observable("simple");
-      self.iconFrom.subscribe(function(newValue) {
+      self.iconFrom.subscribe(function(newIconFrom) {
         $('.yff_fieldset').attr("disabled", true);
-        $('#yff_fieldset_' + self.iconFrom()).attr("disabled", false);
+        $('#yff_fieldset_' + newIconFrom).attr("disabled", false);
       });
 
-      self.bgColor = ko.observable("#ffffff");
-      self.handleBgColor = function() {
-        if (!validator.isValidHtmlColorCode(self.bgColor())) return;
-
-        drawPreviewSimple(canvas, self.bgColor());
+      self.bgColor = ko.observable("#abcdef");
+      self.bgColor.subscribe(function(newBgColor) {
+        if (!validator.isValidHtmlColorCode(newBgColor)) return;
+        drawPreviewSimple(canvas, newBgColor);
         // [TODO] - modelのオブジェクトにsimpleの値をセットする
-      }
-
+      });
     };
     ko.applyBindings(new ViewModel());
   }
