@@ -1,7 +1,3 @@
-function yffIsValidLocalImg(localImg) {
-  return localImg.type.match(YFF_UPLOAD_IMG_TYPE_PATTERN);
-}
-
 // @param icon_settings Array of object.
 //   [ { url_pattern: 'http://.*\.example\.com/.*', ... }, .. ]
 function yffMatchedIconSettingsInOrder(icon_settings, url) {

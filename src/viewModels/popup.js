@@ -4,6 +4,7 @@
   // --- dependency modules ----------------------------------
   var YFF_CONST = require('../miscs/consts')
   var YffCanvas = require('../miscs/canvas');
+  var YffValidator = require('../viewModels/validator');
 
   // --- define / local variables ----------------------------
 
@@ -40,7 +41,7 @@
     // Event listners (Controllers)
     $('#yff_localImg').change(function() {
       var file = this.files[0];
-      if (!yffIsValidLocalImg(file)) return;
+      if (!yffValidator.isValidLocalImg(file)) return;
 
       console.log('Valid image file set:');
 

@@ -79,6 +79,7 @@
   // --- dependency modules ----------------------------------
   var YFF_CONST = require('../miscs/consts')
   var YffCanvas = require('../miscs/canvas');
+  var YffValidator = require('../viewModels/validator');
 
   // --- define / local variables ----------------------------
 
@@ -115,7 +116,7 @@
     // Event listners (Controllers)
     $('#yff_localImg').change(function() {
       var file = this.files[0];
-      if (!yffIsValidLocalImg(file)) return;
+      if (!yffValidator.isValidLocalImg(file)) return;
 
       console.log('Valid image file set:');
 
@@ -201,22 +202,29 @@
 })((this || 0).self || global);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../miscs/canvas":1,"../miscs/consts":2}],5:[function(require,module,exports){
+},{"../miscs/canvas":1,"../miscs/consts":2,"../viewModels/validator":5}],5:[function(require,module,exports){
 (function (global){
 (function(global) {
   "use strict";
 
   // --- dependency modules ----------------------------------
+  var YFF_CONST = require("../miscs/consts");
+
   // --- define / local variables ----------------------------
 
   // --- class / interfaces ----------------------------------
   function YffValidator() {}
 
   YffValidator["prototype"]["isValidHtmlColorCode"] = isValidHtmlColorCode; // isValidHtmlColorCode(color:String):Boolean
+  YffValidator["prototype"]["isValidLocalImg"] = isValidLocalImg; // isValidHtmlColorCode(localImg:Object):Boolean
 
   // --- implements ------------------------------------------
   function isValidHtmlColorCode(color) {
     return /^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(color);
+  }
+
+  function isValidLocalImg(localImg) {
+    return localImg.type.match(YFF_CONST.uploadImgTypePattern);
   }
 
   // --- exports ---------------------------------------------
@@ -228,4 +236,4 @@
 })((this || 0).self || global);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[3]);
+},{"../miscs/consts":2}]},{},[3]);
