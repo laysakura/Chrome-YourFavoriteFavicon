@@ -1,15 +1,19 @@
-(function() {
+(function(global) {
   "use strict";
 
-  main();
+  // --- dependency modules ----------------------------------
+  // --- define / local variables ----------------------------
 
-  function main() {
+  // --- class / interfaces ----------------------------------
+
+  // --- implements ------------------------------------------
+  function popupMain() {
     var validator = new YffValidator();
 
     var canvas = $('#yff_editing_icon_canvas')[0];
     canvas.width = YFF_ICON_SIZE;
     canvas.height = YFF_ICON_SIZE;
-
+console.log('hello');
     registerDataBindings(canvas, validator);
     registerInteractiveValidations(validator);
 
@@ -108,4 +112,10 @@
     yffCanvasDrawSimple(canvas, bgColor);
   }
 
-})();
+  // --- exports ---------------------------------------------
+  if (typeof module !== "undefined") {
+    module["exports"] = popupMain;
+  }
+  global["popupMain"] = popupMain;
+
+})((this || 0).self || global);
