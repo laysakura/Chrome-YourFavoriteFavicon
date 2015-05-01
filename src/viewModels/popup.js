@@ -2,20 +2,25 @@
   "use strict";
 
   // --- dependency modules ----------------------------------
+  var YFF_CONST = require('../miscs/consts')
+  var YffCanvas = require('../miscs/canvas');
+
   // --- define / local variables ----------------------------
 
   // --- class / interfaces ----------------------------------
 
   // --- implements ------------------------------------------
   function popupMain() {
-    var validator = new YffValidator();
+    var yffValidator = new YffValidator();
 
     var canvas = $('#yff_editing_icon_canvas')[0];
-    canvas.width = YFF_ICON_SIZE;
-    canvas.height = YFF_ICON_SIZE;
-console.log('hello');
-    registerDataBindings(canvas, validator);
-    registerInteractiveValidations(validator);
+    canvas.width = YFF_CONST.iconSize;
+    canvas.height = YFF_CONST.iconSize;
+
+    var yffCanvas = new YffCanvas(canvas);
+
+    registerDataBindings(yffCanvas, yffValidator);
+    registerInteractiveValidations(yffValidator);
 
 
     // 初期値はlocalStorageから(modelから)とる
@@ -53,7 +58,7 @@ console.log('hello');
         icon_setting.iconFrom = 'localImg';
         icon_setting.localImg.data_url = data_url;
 
-        yffCanvasDrawImageDataUrl(canvas, data_url);
+        yffCanvas.drawImageDataUrl(canvas, data_url);
       }
       reader.readAsDataURL(file);
     });
@@ -70,9 +75,9 @@ console.log('hello');
 
 
   // Methods
-  function registerInteractiveValidations(validator) {
+  function registerInteractiveValidations(yffValidator) {
     jQuery.validator.addMethod("htmlColorCode", function(value, element) {
-      return this.optional(element) || validator.isValidHtmlColorCode(value);
+      return this.optional(element) || yffValidator.isValidHtmlColorCode(value);
     }, "HTMLカラーコードとして適切な値を入力してください");
 
     $(document).ready(function() {
@@ -88,7 +93,7 @@ console.log('hello');
     });
   }
 
-  function registerDataBindings(canvas, validator) {
+  function registerDataBindings(yffCanvas, yffValidator) {
     var ViewModel = function() {
       var self = this;
 
@@ -100,16 +105,16 @@ console.log('hello');
 
       self.bgColor = ko.observable("#abcdef");
       self.bgColor.subscribe(function(newBgColor) {
-        if (!validator.isValidHtmlColorCode(newBgColor)) return;
-        drawPreviewSimple(canvas, newBgColor);
+        if (!yffValidator.isValidHtmlColorCode(newBgColor)) return;
+        drawPreviewSimple(yffCanvas, newBgColor);
         // [TODO] - modelのオブジェクトにsimpleの値をセットする
       });
     };
     ko.applyBindings(new ViewModel());
   }
 
-  function drawPreviewSimple(canvas, bgColor) {
-    yffCanvasDrawSimple(canvas, bgColor);
+  function drawPreviewSimple(yffCanvas, bgColor) {
+    yffCanvas.drawSimple(bgColor);
   }
 
   // --- exports ---------------------------------------------

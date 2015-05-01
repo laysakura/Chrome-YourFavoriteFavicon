@@ -7,7 +7,7 @@
   // --- class / interfaces ----------------------------------
   function YffValidator() {}
 
-  YffValidator["prototype"]["isValidHtmlColorCode"] = isValidHtmlColorCode; // isvalidhtmlcolorcode(color:String):Boolean
+  YffValidator["prototype"]["isValidHtmlColorCode"] = isValidHtmlColorCode; // isValidHtmlColorCode(color:String):Boolean
 
   // --- implements ------------------------------------------
   function isValidHtmlColorCode(color) {

@@ -1,4 +1,21 @@
-const YFF_ICON_SIZE = 16;
-const YFF_ICON_DATA_URL_FORMAT = 'image_png';
-const YFF_ICON_LINK_TYPE = 'image/png';
-const YFF_UPLOAD_IMG_TYPE_PATTERN = /^image\/(png|jpeg|gif)$/;
+(function(global) {
+  "use strict";
+
+  // --- dependency modules ----------------------------------
+  // --- define / local variables ----------------------------
+  const YFF_CONST = {
+    iconSize: 16,
+    iconDataUrlFormat: 'image_png',
+    iconLinkType: 'image/png',
+    uploadImgTypePattern: /^image\/(png|jpeg|gif)$/,
+  };
+
+  // --- class / interfaces ----------------------------------
+  // --- implements ------------------------------------------
+  // --- exports ---------------------------------------------
+  if (typeof module !== "undefined") {
+    module["exports"] = YFF_CONST;
+  }
+  global["YFF_CONST"] = YFF_CONST;
+
+})((this || 0).self || global);
