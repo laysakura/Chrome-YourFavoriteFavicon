@@ -10,8 +10,8 @@
     this.canvas = canvas;
   }
 
-  YffCanvas["prototype"]["drawSimple"] = drawSimple; // drawSimple(canvas:Object, bgColor:String):void
-  YffCanvas["prototype"]["drawImageDataUrl"] = drawImageDataUrl; // drawImageDataUrl(canvas:Object, dataUrl:String):void
+  YffCanvas["prototype"]["drawSimple"] = drawSimple; // drawSimple(bgColor:String):void
+  YffCanvas["prototype"]["drawImageDataUrl"] = drawImageDataUrl; // drawImageDataUrl(dataUrl:String):void
 
   // --- implements ------------------------------------------
   function drawSimple(bgColor) {
@@ -20,7 +20,7 @@
     ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  function drawImageDataUrl(canvas, dataUrl) {
+  function drawImageDataUrl(dataUrl) {
     var ctx = this.canvas.getContext('2d');
     var image = new Image();
     image.src = dataUrl;
@@ -97,48 +97,24 @@
 
     registerDataBindings(yffCanvas, yffValidator);
     registerInteractiveValidations(yffValidator);
+    registerEventListners(yffCanvas, yffValidator);
 
 
     // 初期値はlocalStorageから(modelから)とる
     // これをform element操作でメモリ上で変更していく
-    var icon_setting = {
-      iconFrom: 'simple',
-      simple: {
-        bg_color: '#0af',
-        character: 'W',
-      },
-      localImg: {
-        data_url: null,
-      },
-    }
+    // var icon_setting = {
+    //   iconFrom: 'simple',
+    //   simple: {
+    //     bg_color: '#0af',
+    //     character: 'W',
+    //   },
+    //   localImg: {
+    //     data_url: null,
+    //   },
+    // }
 
     //
     // Event listners (Controllers)
-    $('#yff_localImg').change(function() {
-      var file = this.files[0];
-      if (!yffValidator.isValidLocalImg(file)) return;
-
-      console.log('Valid image file set:');
-
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var data_url = e.target.result;
-        console.log(data_url);
-
-        // checks localStorage's limitation
-        if (data_url.length > chrome.storage.sync.QUOTA_BYTES_PER_ITEM) {
-          console.log('[FATAL] data_url too large');
-          return;
-        }
-
-        icon_setting.iconFrom = 'localImg';
-        icon_setting.localImg.data_url = data_url;
-
-        yffCanvas.drawImageDataUrl(canvas, data_url);
-      }
-      reader.readAsDataURL(file);
-    });
-
     $('#yff_register_btn').click(function() {
       // var iconFrom = ;
 
@@ -186,7 +162,35 @@
         // [TODO] - modelのオブジェクトにsimpleの値をセットする
       });
     };
+
     ko.applyBindings(new ViewModel());
+  }
+
+  function registerEventListners(yffCanvas, yffValidator) {
+    $('#yffLocalImg').change(function() {
+      var file = this.files[0];
+      if (!yffValidator.isValidLocalImg(file)) return;
+
+      console.log('Valid image file set:');
+
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var data_url = e.target.result;
+        console.log(data_url);
+
+        // checks localStorage's limitation
+        if (data_url.length > chrome.storage.sync.QUOTA_BYTES_PER_ITEM) {
+          console.log('[FATAL] data_url too large');
+          return;
+        }
+
+        // icon_setting.iconFrom = 'localImg';
+        // icon_setting.localImg.data_url = data_url;
+
+        yffCanvas.drawImageDataUrl(data_url);
+      }
+      reader.readAsDataURL(file);
+    });
   }
 
   function drawPreviewSimple(yffCanvas, bgColor) {
