@@ -22,6 +22,7 @@
   "homepage": "https://github.com/laysakura/your-favorite-favicon",
   "devDependencies": {
     "browserify": "^10.0.0",
+    "data-driven": "^1.2.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.7.0",
     "grunt-contrib-watch": "^0.6.1",
