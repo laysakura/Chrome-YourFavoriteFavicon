@@ -1,5 +1,5 @@
 var assert = require('power-assert')
-var Yffvalidator = require("../../src/viewModels/validator");
+var Yffvalidator = require("../src/viewModels/validator");
 
 var yffvalidator = new Yffvalidator();
 

@@ -3,7 +3,7 @@
 
   // --- dependency modules ----------------------------------
   // --- define / local variables ----------------------------
-  const YFF_CONST = {
+  var YFF_CONST = {
     iconSize: 16,
     iconDataUrlFormat: 'image_png',
     iconLinkType: 'image/png',
