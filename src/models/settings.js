@@ -1,32 +1,3 @@
-// Model functions
-
-function yffIsValidBgColor(bg_color) {
-  return /^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(bg_color);
-}
-
-function yffIsValidLocalImg(local_img) {
-  return local_img.type.match(YFF_UPLOAD_IMG_TYPE_PATTERN);
-}
-
-function yffIsValidSettings(settings) {
-  return Array.isArray(settings.icon_settings);
-}
-
-function yffGetCurrentDbObject() {
-  chrome.storage.local.get(null, function(settings) {
-    console.log('Raw current Db object:');
-    console.log(settings);
-    if (yffIsValidSettings(settings)) return settings;
-    return yffGetInitialSettings();
-  });
-}
-
-function yffGetInitialSettings() {
-  return {
-    icon_settings: [],
-  };
-}
-
 // @param icon_settings Array of object.
 //   [ { url_pattern: 'http://.*\.example\.com/.*', ... }, .. ]
 function yffMatchedIconSettingsInOrder(icon_settings, url) {

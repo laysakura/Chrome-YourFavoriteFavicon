@@ -1,4 +1,8 @@
 (function() {
+  "use strict";
+
+  var YFF_CONST = require('./miscs/consts');
+  var YffCanvas = require('./miscs/canvas');
 
   chrome.storage.local.get(null, function(settings) {
 
@@ -15,7 +19,7 @@
         {
           url_pattern: 'http://example\.com/',
           updated_at: 23456,
-          icon_from: 'simple',
+          iconFrom: 'simple',
           simple: {
             bg_color: '#a0f',
           },
@@ -39,19 +43,21 @@
     var icon_setting = matched_icon_settings[0];
 
     var canvas = document.createElement('canvas');
-    canvas.width = YFF_ICON_SIZE;
-    canvas.height = YFF_ICON_SIZE;
+    canvas.width = YFF_CONST.iconSize;
+    canvas.height = YFF_CONST.iconSize;
 
-    switch (icon_setting.icon_from) {
+    var yffCanvas = new YffCanvas();
+
+    switch (icon_setting.iconFrom) {
     case 'simple':
-      yffCanvasDrawSimple(canvas, icon_setting.simple.bg_color);
+      yffCanvas.drawSimple(canvas, icon_setting.simple.bg_color);
       break;
-    case 'local_img':
-      yffCanvasDrawImageDataUrl(canvas, icon_setting.local_img.data_url);
+    case 'localImg':
+      yffCanvas.drawImageDataUrl(canvas, icon_setting.localImg.data_url);
       break;
     }
 
-    var img_data_url = canvas.toDataURL(YFF_ICON_DATA_URL_FORMAT);
+    var img_data_url = canvas.toDataURL(YFF_CONST.iconDataUrlFormat);
     updateIcon(img_data_url);
   });
 
@@ -61,8 +67,8 @@
   function updateIcon(img_data_url) {
     var link = document.createElement('link');
     link.setAttribute('rel', 'icon');
-    link.setAttribute('type', YFF_ICON_LINK_TYPE);
-    link.setAttribute('sizes', [YFF_ICON_SIZE, YFF_ICON_SIZE].join(' '));
+    link.setAttribute('type', YFF_CONST.iconLinkType);
+    link.setAttribute('sizes', [YFF_CONST.iconSize, YFF_CONST.iconSize].join(' '));
     link.setAttribute('href', img_data_url);
     document.querySelector('head').appendChild(link);
   }
