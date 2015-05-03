@@ -8,6 +8,7 @@
   // --- class / interfaces ----------------------------------
   function YffUrl() {}
 
+  // ORDER BY the same order with patternStrs (assuming users arrange their prefered order)
   YffUrl["prototype"]["matchedUrlPatternsFromBest"] = matchedUrlPatternsFromBest; // matchedUrlPatternsFromBest(patternStrs:Array):Array
 
   // --- implements ------------------------------------------
@@ -15,7 +16,6 @@
     var results = []
 
     patternStrs.forEach(function(patternStr, index) {
-      console.log(patternStr)
       var pattern = new UrlPattern(patternStr);
       var matched = pattern.match(url);
       if (matched) { results.push(patternStr); }
