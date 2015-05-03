@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/laysakura/your-favorite-favicon"
+    "url": "https://github.com/laysakura/Chrome-YourFavoriteFavicon"
   },
   "keywords": [
     "favicon",
@@ -17,9 +17,9 @@
   "author": "Sho Nakatani",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/laysakura/your-favorite-favicon/issues"
+    "url": "https://github.com/laysakura/Chrome-YourFavoriteFavicon/issues"
   },
-  "homepage": "https://github.com/laysakura/your-favorite-favicon",
+  "homepage": "https://github.com/laysakura/Chrome-YourFavoriteFavicon",
   "devDependencies": {
     "browserify": "^10.0.0",
     "data-driven": "^1.2.0",
@@ -28,7 +28,6 @@
     "grunt-contrib-watch": "^0.6.1",
     "mocha": "^2.2.1",
     "power-assert": "^0.10.2",
-    "pryjs": "0.0.11",
     "url-pattern": "^0.8.0"
   }
 }
