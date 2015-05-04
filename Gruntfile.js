@@ -5,7 +5,8 @@ module.exports = function (grunt) {
     browserify: {
       sample: {
         files: {
-          "dist/your-favorite-favicon.dev.js": ["src/options-main.js"]
+          "dist/your-favorite-favicon-options.dev.js": ["src/options-main.js"],
+          "dist/your-favorite-favicon-popup.dev.js": ["src/popup-main.js"],
         }
       }
     },
