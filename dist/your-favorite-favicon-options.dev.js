@@ -43,7 +43,7 @@
 
   // --- dependency modules ----------------------------------
   // --- define / local variables ----------------------------
-  const YFF_CONST = {
+  var YFF_CONST = {
     iconSize: 16,
     iconDataUrlFormat: 'image_png',
     iconLinkType: 'image/png',
@@ -66,12 +66,12 @@
   "use strict";
 
   var YffValidator = require('./viewModels/validator');
-  var popupMain = require('./viewModels/popup');
+  var optionsMain = require('./viewModels/options');
 
-  $(window).load(popupMain);
+  $(window).load(optionsMain);
 }());
 
-},{"./viewModels/popup":4,"./viewModels/validator":5}],4:[function(require,module,exports){
+},{"./viewModels/options":4,"./viewModels/validator":5}],4:[function(require,module,exports){
 (function (global){
 (function(global) {
   "use strict";
@@ -86,7 +86,7 @@
   // --- class / interfaces ----------------------------------
 
   // --- implements ------------------------------------------
-  function popupMain() {
+  function optionsMain() {
     var yffValidator = new YffValidator();
 
     var canvas = $('#yff_editing_icon_canvas')[0];
@@ -199,9 +199,9 @@
 
   // --- exports ---------------------------------------------
   if (typeof module !== "undefined") {
-    module["exports"] = popupMain;
+    module["exports"] = optionsMain;
   }
-  global["popupMain"] = popupMain;
+  global["optionsMain"] = optionsMain;
 
 })((this || 0).self || global);
 
