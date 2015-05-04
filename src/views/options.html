@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body style="min-width:600px">
+
+    <form id="yffForm">
+      <label>URL Pattern
+      <input id="yff_url_pattern" type="text">
+      </label>
+
+      <div>
+        <label><input type="radio" name="iconFrom" value="simple" data-bind="checked: iconFrom">Background color & a character</label>
+        <label><input type="radio" name="iconFrom" value="localImg" data-bind="checked: iconFrom">Local image file</label>
+        <p data-bind="text: iconFrom"></p>
+      </div>
+
+      <fieldset id="yff_fieldset_simple" class="yff_fieldset">
+        <label>Background color
+        <input id="yffBgColor" name="yffBgColor" type="text" data-bind="value: bgColor, valueUpdate: 'afterkeydown'">
+        </label>
+        <p data-bind="text: bgColor">debug</p>
+      </fieldset>
+
+      <fieldset id="yff_fieldset_localImg" class="yff_fieldset" disabled="disabled">
+        <label>Local image
+        <input id="yffLocalImg" type="file">
+        </label>
+        <span>Less than 8KB as data url</span>
+      </fieldset>
+
+      <div>
+        <p>Editing icon</p>
+        <canvas id="yff_editing_icon_canvas"></canvas>
+      </div>
+
+      <button id="yff_register_btn" type="button">Register</button>
+    </form>
+
+    <script src="../../lib/jquery-2.1.3.min.js"></script>
+    <script src="../../lib/jquery.validate-1.13.1.min.js"></script>
+    <script src="../../lib/knockout-3.3.0.js"></script>
+    <script src="../../dist/your-favorite-favicon.dev.js"></script>
+  </body>
+</html>

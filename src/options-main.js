@@ -2,7 +2,7 @@
   "use strict";
 
   var YffValidator = require('./viewModels/validator');
-  var popupMain = require('./viewModels/popup');
+  var optionsMain = require('./viewModels/options');
 
-  $(window).load(popupMain);
+  $(window).load(optionsMain);
 }());

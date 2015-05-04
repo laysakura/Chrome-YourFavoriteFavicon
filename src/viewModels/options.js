@@ -11,7 +11,7 @@
   // --- class / interfaces ----------------------------------
 
   // --- implements ------------------------------------------
-  function popupMain() {
+  function optionsMain() {
     var yffValidator = new YffValidator();
 
     var canvas = $('#yff_editing_icon_canvas')[0];
@@ -124,8 +124,8 @@
 
   // --- exports ---------------------------------------------
   if (typeof module !== "undefined") {
-    module["exports"] = popupMain;
+    module["exports"] = optionsMain;
   }
-  global["popupMain"] = popupMain;
+  global["optionsMain"] = optionsMain;
 
 })((this || 0).self || global);
