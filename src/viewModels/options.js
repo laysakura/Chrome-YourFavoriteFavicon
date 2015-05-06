@@ -5,6 +5,8 @@
   var YFF_CONST = require('../miscs/consts');
   var YffCanvas = require('../miscs/canvas');
   var YffValidator = require('../viewModels/validator');
+  var YffSiteIcon = require('../models/siteIcon');
+  var YffSimpleIcon = require('../models/simpleIcon');
 
   // --- define / local variables ----------------------------
 
@@ -20,8 +22,7 @@
 
     var yffCanvas = new YffCanvas(canvas);
 
-    registerDataBindings(yffCanvas, yffValidator);
-    registerInteractiveValidations(yffValidator);
+    registerDataBindings(yffCanvas);
     registerEventListners(yffCanvas, yffValidator);
 
 
@@ -50,41 +51,32 @@
     });
   }
 
-
-  // Methods
-  function registerInteractiveValidations(yffValidator) {
-    jQuery.validator.addMethod("htmlColorCode", function(value, element) {
-      return this.optional(element) || yffValidator.isValidHtmlColorCode(value);
-    }, "HTMLカラーコードとして適切な値を入力してください");
-
-    $(document).ready(function() {
-      $('#yffForm').validate({
-        debug: true,
-        onkeyup: function(element) { $(element).valid(); },  // `onkeyup: true` does not work... see https://github.com/jzaefferer/jquery-validation/issues/428
-        rules: {
-          yffBgColor: {
-            htmlColorCode: true
-          }
-        }
-      });
-    });
-  }
-
-  function registerDataBindings(yffCanvas, yffValidator) {
+  function registerDataBindings(yffCanvas) {
     var ViewModel = function() {
       var self = this;
 
+      self.urlPattern = ko.observable("www.example.com");
+      self.urlPatternValidationError = ko.observable();
       self.iconFrom = ko.observable("simple");
+      self.bgColor = ko.observable("#abcdef");
+      self.bgColorValidationError = ko.observable();
+
+      self.urlPattern.subscribe(function(newUrlPattern) {
+        var errorMessage = YffSiteIcon.prototype.validateUrlPattern(newUrlPattern);
+        self.urlPatternValidationError(errorMessage);
+      });
+
       self.iconFrom.subscribe(function(newIconFrom) {
         $('.yff_fieldset').attr("disabled", true);
         $('#yff_fieldset_' + newIconFrom).attr("disabled", false);
       });
 
-      self.bgColor = ko.observable("#abcdef");
       self.bgColor.subscribe(function(newBgColor) {
-        if (!yffValidator.isValidHtmlColorCode(newBgColor)) return;
+        var errorMessage = YffSimpleIcon.prototype.validateBgColor(newBgColor);
+        self.bgColorValidationError(errorMessage);
+        if (errorMessage) { return; }
+
         drawPreviewSimple(yffCanvas, newBgColor);
-        // [TODO] - modelのオブジェクトにsimpleの値をセットする
       });
     };
 

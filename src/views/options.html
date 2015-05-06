@@ -2,13 +2,15 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="../../css/your-favorite-favicon.css">
   </head>
   <body style="min-width:600px">
 
     <form id="yffForm">
-      <label>URL Pattern
-      <input id="yff_url_pattern" type="text">
+      <label data-bind="css: { hasError: typeof urlPatternValidationError() == 'string' && urlPatternValidationError().length > 0 }">URL Pattern
+      <input type="text" data-bind="value: urlPattern, valueUpdate: 'afterkeydown'">
       </label>
+      <p data-bind="text: urlPatternValidationError"></p>
 
       <div>
         <label><input type="radio" name="iconFrom" value="simple" data-bind="checked: iconFrom">Background color & a character</label>
@@ -17,10 +19,10 @@
       </div>
 
       <fieldset id="yff_fieldset_simple" class="yff_fieldset">
-        <label>Background color
-        <input id="yffBgColor" name="yffBgColor" type="color" data-bind="value: bgColor, valueUpdate: 'afterkeydown'">
+        <label data-bind="css: { hasError: typeof bgColorValidationError() == 'string' && bgColorValidationError().length > 0 }">Background color
+        <input type="text" data-bind="value: bgColor, valueUpdate: 'afterkeydown'">
         </label>
-        <p data-bind="text: bgColor">debug</p>
+        <p data-bind="text: bgColorValidationError"></p>
       </fieldset>
 
       <fieldset id="yff_fieldset_localImg" class="yff_fieldset" disabled="disabled">
@@ -39,7 +41,6 @@
     </form>
 
     <script src="../../lib/jquery-2.1.3.min.js"></script>
-    <script src="../../lib/jquery.validate-1.13.1.min.js"></script>
     <script src="../../lib/knockout-3.3.0.js"></script>
     <script src="../../dist/your-favorite-favicon-options.dev.js"></script>
   </body>
