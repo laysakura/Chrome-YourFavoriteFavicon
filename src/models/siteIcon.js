@@ -2,6 +2,8 @@
   "use strict";
 
   // --- dependency modules ----------------------------------
+  var UrlPattern = require("url-pattern");
+
   // --- define / local variables ----------------------------
   // --- class / interfaces ----------------------------------
 
@@ -17,6 +19,7 @@
   YffSiteIcon["prototype"]["setAttributes"] = setAttributes; // setAttributes(attributes:Object):void, may throw YffValidationError
 
   // used as class method
+  YffSiteIcon["prototype"]["validateUrlPattern"] = validateUrlPattern; // validateUrlPattern(urlPattern:String):String
   YffSiteIcon["prototype"]["validateIconClass"] = validateIconClass; // validateIconClass(iconClass:String):String
 
   // --- implements ------------------------------------------
@@ -24,6 +27,15 @@
     this.urlPattern = attributes.urlPattern;
     this.iconClass = attributes.iconClass;
     this.iconObject = attributes.iconObject;
+  }
+
+  function validateUrlPattern(urlPattern) {
+    if (urlPattern.length == 0) { return "must not be empty"; }
+
+    try { new UrlPattern(urlPattern); }
+    catch (e) { return "Invalid URL pattern: " + e; }
+
+    return null;
   }
 
   function validateIconClass(iconClass) {

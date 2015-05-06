@@ -1,5 +1,5 @@
-var assert = require('power-assert')
-var data_driven = require('data-driven')
+var assert = require('power-assert');
+var data_driven = require('data-driven');
 var YffUrl = require("../src/miscs/url");
 
 var yffUrl = new YffUrl();
@@ -40,7 +40,7 @@ describe('#matchedUrlPatternsFromBest', function() {
     ], function() {
       it('should return matched patterns in order', function(ctx) {
         assert.deepEqual(ctx.expected, yffUrl.matchedUrlPatternsFromBest(ctx.patterns, url));
-      })
-    })
-  })
+      });
+    });
+  });
 });

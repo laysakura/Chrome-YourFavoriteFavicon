@@ -7,9 +7,10 @@
   <body style="min-width:600px">
 
     <form id="yffForm">
-      <label>URL Pattern
-      <input id="yff_url_pattern" type="text">
+      <label data-bind="css: { hasError: typeof urlPatternValidationError() == 'string' && urlPatternValidationError().length > 0 }">URL Pattern
+      <input type="text" data-bind="value: urlPattern, valueUpdate: 'afterkeydown'">
       </label>
+      <p data-bind="text: urlPatternValidationError"></p>
 
       <div>
         <label><input type="radio" name="iconFrom" value="simple" data-bind="checked: iconFrom">Background color & a character</label>
@@ -19,7 +20,7 @@
 
       <fieldset id="yff_fieldset_simple" class="yff_fieldset">
         <label data-bind="css: { hasError: typeof bgColorValidationError() == 'string' && bgColorValidationError().length > 0 }">Background color
-        <input id="yffBgColor" name="yffBgColor" type="text" data-bind="value: bgColor, valueUpdate: 'afterkeydown'">
+        <input type="text" data-bind="value: bgColor, valueUpdate: 'afterkeydown'">
         </label>
         <p data-bind="text: bgColorValidationError"></p>
       </fieldset>
