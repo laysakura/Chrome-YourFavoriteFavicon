@@ -2,7 +2,7 @@
   "use strict";
 
   // --- dependency modules ----------------------------------
-  var YFF_CONST = require('../miscs/consts')
+  var YFF_CONST = require('../miscs/consts');
   var YffCanvas = require('../miscs/canvas');
   var YffValidator = require('../viewModels/validator');
 
@@ -113,7 +113,7 @@
         // icon_setting.localImg.data_url = data_url;
 
         yffCanvas.drawImageDataUrl(data_url);
-      }
+      };
       reader.readAsDataURL(file);
     });
   }
