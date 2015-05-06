@@ -62,6 +62,50 @@
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
+(function (global){
+(function(global) {
+  "use strict";
+
+  // --- dependency modules ----------------------------------
+  // --- define / local variables ----------------------------
+  var YffValidator = require("../viewModels/validator");
+
+  // --- class / interfaces ----------------------------------
+
+  // Model class of such object.
+  //
+  // {
+  //   bgColor: "#a0f",
+  // }
+  function YffSimpleIcon() {}
+
+  YffSimpleIcon["prototype"]["setAttributes"] = setAttributes; // setAttributes(attributes:Object):void, may throw YffValidationError
+
+  // used as class method
+  YffSimpleIcon["prototype"]["validateBgColor"] = validateBgColor; // validateBgColor(iconClass:String):String
+
+  // --- implements ------------------------------------------
+  function setAttributes(attributes) {
+    this.bgColor = attributes.bgColor;
+  }
+
+  function validateBgColor(bgColor) {
+    if (!YffValidator.prototype.isValidHtmlColorCode(bgColor)) {
+      return "Valid color code is like #987 or #123abc";
+    }
+    return null;
+  }
+
+  // --- exports ---------------------------------------------
+  if (typeof module !== "undefined") {
+   module["exports"] = YffSimpleIcon;
+  }
+  global["YffSimpleIcon"] = YffSimpleIcon;
+
+})((this || 0).self || global);
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"../viewModels/validator":6}],4:[function(require,module,exports){
 (function() {
   "use strict";
 
@@ -71,15 +115,16 @@
   $(window).load(optionsMain);
 }());
 
-},{"./viewModels/options":4,"./viewModels/validator":5}],4:[function(require,module,exports){
+},{"./viewModels/options":5,"./viewModels/validator":6}],5:[function(require,module,exports){
 (function (global){
 (function(global) {
   "use strict";
 
   // --- dependency modules ----------------------------------
-  var YFF_CONST = require('../miscs/consts')
+  var YFF_CONST = require('../miscs/consts');
   var YffCanvas = require('../miscs/canvas');
   var YffValidator = require('../viewModels/validator');
+  var YffSimpleIcon = require('../models/simpleIcon');
 
   // --- define / local variables ----------------------------
 
@@ -96,7 +141,6 @@
     var yffCanvas = new YffCanvas(canvas);
 
     registerDataBindings(yffCanvas, yffValidator);
-    registerInteractiveValidations(yffValidator);
     registerEventListners(yffCanvas, yffValidator);
 
 
@@ -125,39 +169,28 @@
     });
   }
 
-
-  // Methods
-  function registerInteractiveValidations(yffValidator) {
-    jQuery.validator.addMethod("htmlColorCode", function(value, element) {
-      return this.optional(element) || yffValidator.isValidHtmlColorCode(value);
-    }, "HTMLカラーコードとして適切な値を入力してください");
-
-    $(document).ready(function() {
-      $('#yffForm').validate({
-        debug: true,
-        onkeyup: function(element) { $(element).valid(); },  // `onkeyup: true` does not work... see https://github.com/jzaefferer/jquery-validation/issues/428
-        rules: {
-          yffBgColor: {
-            htmlColorCode: true
-          }
-        }
-      });
-    });
-  }
-
   function registerDataBindings(yffCanvas, yffValidator) {
     var ViewModel = function() {
       var self = this;
 
       self.iconFrom = ko.observable("simple");
+      self.bgColor = ko.observable("#abcdef");
+      self.bgColorValidationError = ko.observable("");
+
       self.iconFrom.subscribe(function(newIconFrom) {
         $('.yff_fieldset').attr("disabled", true);
         $('#yff_fieldset_' + newIconFrom).attr("disabled", false);
       });
 
-      self.bgColor = ko.observable("#abcdef");
       self.bgColor.subscribe(function(newBgColor) {
-        if (!yffValidator.isValidHtmlColorCode(newBgColor)) return;
+        // [TODO] - バリデーションの共通化
+        var errorMessage = YffSimpleIcon.prototype.validateBgColor(newBgColor);
+        self.bgColorValidationError(errorMessage);
+
+        if (errorMessage) {
+          return;
+        }
+
         drawPreviewSimple(yffCanvas, newBgColor);
         // [TODO] - modelのオブジェクトにsimpleの値をセットする
       });
@@ -188,7 +221,7 @@
         // icon_setting.localImg.data_url = data_url;
 
         yffCanvas.drawImageDataUrl(data_url);
-      }
+      };
       reader.readAsDataURL(file);
     });
   }
@@ -206,7 +239,7 @@
 })((this || 0).self || global);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../miscs/canvas":1,"../miscs/consts":2,"../viewModels/validator":5}],5:[function(require,module,exports){
+},{"../miscs/canvas":1,"../miscs/consts":2,"../models/simpleIcon":3,"../viewModels/validator":6}],6:[function(require,module,exports){
 (function (global){
 (function(global) {
   "use strict";
@@ -240,4 +273,4 @@
 })((this || 0).self || global);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../miscs/consts":2}]},{},[3]);
+},{"../miscs/consts":2}]},{},[4]);

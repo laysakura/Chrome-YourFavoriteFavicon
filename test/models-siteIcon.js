@@ -1,45 +1,12 @@
 var assert = require('power-assert');
-var YffValidationError = require("../src/errors/validationError");
 var YffSiteIcon = require("../src/models/siteIcon");
 
-describe('#validate', function() {
-  var yffSiteIcon;
-  var attributes;
-
-  beforeEach(function(done) {
-    yffSiteIcon = new YffSiteIcon();
-    attributes = {
-      iconClass: "YffSimpleIcon"
-    };
-    done();
+describe('#validateIconClass', function() {
+  it('should be valid when passed "YffSimpleIcon"', function() {
+    assert.equal(null, YffSiteIcon.prototype.validateIconClass("YffSimpleIcon"));
   });
 
-  it('should not throw any error with valid attributes', function() {
-    yffSiteIcon.setAttributes(attributes);
-    assert.doesNotThrow(function () { yffSiteIcon.validate(); });
-  });
-
-  describe('iconClass attribute', function() {
-    beforeEach(function(done) {
-      delete attributes.iconClass;
-      done();
-    });
-
-    it('should not throw any error with YffSimpleIcon', function() {
-      attributes.iconClass = "YffSimpleIcon";
-      yffSiteIcon.setAttributes(attributes);
-      assert.doesNotThrow(function () { yffSiteIcon.validate(); });
-    });
-
-    it('should throw YffValidationError when not set', function() {
-      yffSiteIcon.setAttributes(attributes);
-      assert.throws(function () { yffSiteIcon.validate(); }, YffValidationError);
-    });
-
-    it('should throw YffValidationError when with invalid class', function() {
-      attributes.iconClass = "YffColorfulIcon";
-      yffSiteIcon.setAttributes(attributes);
-      assert.throws(function () { yffSiteIcon.validate(); }, YffValidationError);
-    });
+  it('should be invalid when passed not-registered class name', function() {
+    assert.equal("YffRainbowIcon is not a valid iconClass", YffSiteIcon.prototype.validateIconClass("YffRainbowIcon"));
   });
 });

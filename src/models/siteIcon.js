@@ -3,8 +3,6 @@
 
   // --- dependency modules ----------------------------------
   // --- define / local variables ----------------------------
-  var YffValidationError = require("../errors/validationError");
-
   // --- class / interfaces ----------------------------------
 
   // Model class of such object.
@@ -17,9 +15,9 @@
   function YffSiteIcon() {}
 
   YffSiteIcon["prototype"]["setAttributes"] = setAttributes; // setAttributes(attributes:Object):void, may throw YffValidationError
-  YffSiteIcon["prototype"]["validate"] = validate; // validate():void, may throw YffValidationError
 
-  YffSiteIcon["prototype"]["_validateIconClass"] = _validateIconClass; // _validateIconClass(iconClass:String):String
+  // used as class method
+  YffSiteIcon["prototype"]["validateIconClass"] = validateIconClass; // validateIconClass(iconClass:String):String
 
   // --- implements ------------------------------------------
   function setAttributes(attributes) {
@@ -28,19 +26,9 @@
     this.iconObject = attributes.iconObject;
   }
 
-  function validate() {
-    var errorAttributes = {};
-    var errorMessage;
-
-    errorMessage = _validateIconClass(this.iconClass);
-    if (errorMessage) { errorAttributes.iconClass = errorMessage; }
-
-    if (Object.keys(errorAttributes).length > 0) { throw new YffValidationError("Error!", YffSiteIcon, errorAttributes); }
-  }
-
-  function _validateIconClass(iconClass) {
+  function validateIconClass(iconClass) {
     if (iconClass != "YffSimpleIcon") {
-      return "Not a valid iconClass: " + iconClass;
+      return "" + iconClass + " is not a valid iconClass";
     }
     return null;
   }
