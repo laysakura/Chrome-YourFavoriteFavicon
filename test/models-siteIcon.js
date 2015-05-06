@@ -1,6 +1,5 @@
 var assert = require('power-assert');
 var YffValidationError = require("../src/errors/validationError");
-var YffSimpleIcon = require("../src/models/simpleIcon");
 var YffSiteIcon = require("../src/models/siteIcon");
 
 describe('#validate', function() {
@@ -10,7 +9,7 @@ describe('#validate', function() {
   beforeEach(function(done) {
     yffSiteIcon = new YffSiteIcon();
     attributes = {
-      iconClass: YffSimpleIcon
+      iconClass: "YffSimpleIcon"
     };
     done();
   });
@@ -27,7 +26,7 @@ describe('#validate', function() {
     });
 
     it('should not throw any error with YffSimpleIcon', function() {
-      attributes.iconClass = YffSimpleIcon;
+      attributes.iconClass = "YffSimpleIcon";
       yffSiteIcon.setAttributes(attributes);
       assert.doesNotThrow(function () { yffSiteIcon.validate(); });
     });
@@ -38,7 +37,7 @@ describe('#validate', function() {
     });
 
     it('should throw YffValidationError when with invalid class', function() {
-      attributes.iconClass = Object;
+      attributes.iconClass = "YffColorfulIcon";
       yffSiteIcon.setAttributes(attributes);
       assert.throws(function () { yffSiteIcon.validate(); }, YffValidationError);
     });

@@ -4,7 +4,6 @@
   // --- dependency modules ----------------------------------
   // --- define / local variables ----------------------------
   var YffValidationError = require("../errors/validationError");
-  var YffSimpleIcon = require("../models/simpleIcon");
 
   // --- class / interfaces ----------------------------------
 
@@ -12,7 +11,7 @@
   //
   // {
   //   urlPattern: "*.example.jp",
-  //   iconClass: YffLocalImgIcon,  // One of YffSimpleIcon", YffLocalImgIcon
+  //   iconClass: "YffLocalImgIcon",  // One of "YffSimpleIcon", "YffLocalImgIcon"
   //   iconObject: <YffLocalImgIcon object>,  // One of <YffSimpleIcon object>, <YffLocalImgIcon object>
   // }
   function YffSiteIcon() {}
@@ -20,7 +19,7 @@
   YffSiteIcon["prototype"]["setAttributes"] = setAttributes; // setAttributes(attributes:Object):void, may throw YffValidationError
   YffSiteIcon["prototype"]["validate"] = validate; // validate():void, may throw YffValidationError
 
-  YffSiteIcon["prototype"]["_validateIconClass"] = _validateIconClass; // _validateIconClass(urlPattern:String):String
+  YffSiteIcon["prototype"]["_validateIconClass"] = _validateIconClass; // _validateIconClass(iconClass:String):String
 
   // --- implements ------------------------------------------
   function setAttributes(attributes) {
@@ -40,7 +39,7 @@
   }
 
   function _validateIconClass(iconClass) {
-    if (iconClass != YffSimpleIcon) {
+    if (iconClass != "YffSimpleIcon") {
       return "Not a valid iconClass: " + iconClass;
     }
     return null;
