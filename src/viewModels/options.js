@@ -63,7 +63,6 @@
 
       self.urlPattern.subscribe(function(newUrlPattern) {
         var errorMessage = YffSiteIcon.prototype.validateUrlPattern(newUrlPattern);
-console.log(errorMessage);
         self.urlPatternValidationError(errorMessage);
       });
 

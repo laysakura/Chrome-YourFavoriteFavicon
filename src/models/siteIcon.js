@@ -21,6 +21,7 @@
   // used as class method
   YffSiteIcon["prototype"]["validateUrlPattern"] = validateUrlPattern; // validateUrlPattern(urlPattern:String):String
   YffSiteIcon["prototype"]["validateIconClass"] = validateIconClass; // validateIconClass(iconClass:String):String
+  YffSiteIcon["prototype"]["validateIconObject"] = validateIconObject; // validateIconObject(iconClass:String):String
 
   // --- implements ------------------------------------------
   function setAttributes(attributes) {
@@ -41,6 +42,18 @@
   function validateIconClass(iconClass) {
     if (iconClass != "YffSimpleIcon") {
       return "" + iconClass + " is not a valid iconClass";
+    }
+    return null;
+  }
+
+  function validateIconObject(iconClass, iconObject) {
+    if (iconClass != iconObject.constructor.name) {
+      return "iconObject is not an iconClass";
+    }
+
+    var errorMessages = iconObject.validateAll();
+    if (Object.keys(errorMessages).length > 0) {
+      return "some errors exist: " + errorMessages;
     }
     return null;
   }

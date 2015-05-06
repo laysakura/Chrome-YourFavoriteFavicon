@@ -14,7 +14,8 @@
   // }
   function YffSimpleIcon() {}
 
-  YffSimpleIcon["prototype"]["setAttributes"] = setAttributes; // setAttributes(attributes:Object):void, may throw YffValidationError
+  YffSimpleIcon["prototype"]["setAttributes"] = setAttributes; // setAttributes(attributes:Object):void
+  YffSimpleIcon["prototype"]["validateAll"] = validateAll; // validateAll():Object
 
   // used as class method
   YffSimpleIcon["prototype"]["validateBgColor"] = validateBgColor; // validateBgColor(iconClass:String):String
@@ -22,6 +23,16 @@
   // --- implements ------------------------------------------
   function setAttributes(attributes) {
     this.bgColor = attributes.bgColor;
+  }
+
+  function validateAll() {
+    var errorMessages = {};
+    var errMsg;
+
+    errMsg = this.validateBgColor(this.bgColor);
+    if (errMsg) { errorMessages.bgColor = errMsg; }
+
+    return errorMessages;
   }
 
   function validateBgColor(bgColor) {
